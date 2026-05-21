@@ -1,0 +1,51 @@
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int ans = -1;
+
+        int start = 1;
+        int end = Integer.MIN_VALUE;
+
+        for(int i = 0; i<piles.length;i++){
+            if(piles[i]>end){
+                end = piles[i];
+
+            }
+        }
+
+        while(start<=end){
+            int mid = start+(end-start)/2;
+            if(eatingbananas(mid,h,piles)){
+                ans = mid ;
+                end = mid-1;
+
+            }
+            else {
+                start = mid+1;
+            }
+        }
+       return ans;
+    }
+
+
+    
+    static boolean eatingbananas(int mid , int hours , int[] piles ){
+        long totalhours =0;
+        for(int i = 0;i<piles.length; i++){
+           long calculatedhours = piles[i]/mid;
+            if(piles[i]%mid!=0){
+                calculatedhours = calculatedhours +1;
+
+        }
+        totalhours+=calculatedhours;
+        }
+            if(totalhours>hours){
+                return false;
+            }
+
+
+
+
+        return true;
+    }
+
+}
