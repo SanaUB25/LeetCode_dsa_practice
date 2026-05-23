@@ -1,0 +1,47 @@
+class Solution {
+    public int smallestDivisor(int[] nums, int threshold) {
+            int ans = 0;
+            int first = 1;
+            int end = Integer.MIN_VALUE;
+            //highest value in the array
+            for(int i =0;i<nums.length;i++){
+                if(nums[i]>end){
+                    end = nums[i];
+                }
+            }
+            //binary search
+        while(first<=end){
+            int mid = first+(end-first)/2;
+            if(trueorfalse(mid,nums,threshold)){
+                ans = mid;
+                end = mid-1;
+
+            }
+            else{
+                first = mid+1;
+            }
+        }
+        return ans ;}
+        
+    static boolean trueorfalse(int mid, int[] nums,int threshold){
+            int ans1;
+            int total=0;
+            for(int i =0;i<nums.length;i++){
+                if(nums[i]%mid!=0){
+                    ans1 = (nums[i]/mid)+1;
+                }
+                else{
+                    ans1 = (nums[i]/mid);
+                }
+                total +=ans1;
+            }
+
+            if(total<=threshold){
+                return true;
+            }
+            else{
+                return false;
+            }
+    }
+
+}
