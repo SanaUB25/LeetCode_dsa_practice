@@ -1,0 +1,52 @@
+class Solution {
+    public int minimizedMaximum(int n, int[] quantities) {
+            int start = 1;
+            int res =0;
+            int end = Integer.MIN_VALUE;
+            //To find the greatest element in array of products
+
+            for(int i = 0 ;i < quantities.length;i++){
+                if(quantities[i]>end){
+                    end = quantities[i];
+
+                }
+            }
+            //Binary search
+        while(start<=end){
+            int mid = start+(end-start)/2;
+            if(callforproductz(quantities,mid,n)){
+                end = mid-1;
+               res = mid;
+            }
+            else {
+                start = mid+1;
+            }
+
+        }
+
+           return res;
+    }
+
+    static boolean callforproductz(int[] quantities,int mid,int stores) {
+        int tol = 0;
+        int finaltotal = 0;
+
+        for (int i = 0; i < quantities.length; i++) {
+            if (quantities[i]%mid!=0){
+                tol = (quantities[i]/mid)+1;
+            }
+            else{
+                tol = (quantities[i]/mid);
+            }
+            finaltotal+=tol;
+        }
+        if(finaltotal>stores){
+            return false;
+
+        }
+        return true;
+
+    }
+
+
+}
